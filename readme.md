@@ -1,3 +1,5 @@
 # node-red-contrib-google-da
 
-Google Device Access Node-Red Nodes
+Google Nest Device Access Node-Red Nodes
+
+https://developers.google.com/nest/device-access
