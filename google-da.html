@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  RED.nodes.registerType('google-da-config', {
+    category: 'config',
+    defaults: {
+      clientId: { value: '', required: true },
+      clientSecret: { value: '', required: true },
+      refreshToken: { value: '', required: true },
+    },
+    label: () => `Google DA - ${this.clientId}`,
+  })
+
+  RED.nodes.registerType('google-da-get-devices', {
+    category: 'config',
+    defaults: {
+      projectId: { value: '', required: true },
+      deviceId: { value: '' },
+    },
+    label: () => `Google DA - ${this.clientId}`,
+  })
+</script>
+
+<script type="text/html" data-template-name="google-da-auth">
+  <div class="form-row">
+    <label for="node-auth-input-clientId"><i class="fa fa-tag"></i> Client ID</label>
+    <input type="text" id="node-auth-input-clientId" placeholder="Client ID" />
+  </div>
+  <div class="form-row">
+    <label for="node-auth-input-clientSecret"><i class="fa fa-tag"></i> Client Secret</label>
+    <input type="text" id="node-auth-input-clientSecret" placeholder="Client Secret" />
+  </div>
+  <div class="form-row">
+    <label for="node-auth-input-refreshToken"><i class="fa fa-tag"></i> Refresh Token</label>
+    <input type="text" id="node-auth-input-refreshToken" placeholder="Refresh Token" />
+  </div>
+</script>
+
+<script type="text/html" data-template-name="google-da-get-devices">
+  <div class="form-row">
+    <label for="node-get-devices-input-projectId"><i class="fa fa-tag"></i> Project ID</label>
+    <input type="text" id="node-get-devices-input-projectId" placeholder="Project ID" />
+  </div>
+  <div class="form-row">
+    <label for="node-get-devices-input-deviceId"><i class="fa fa-tag"></i> Device ID</label>
+    <input type="text" id="node-get-devices-input-deviceId" placeholder="Device ID" />
+  </div>
+</script>

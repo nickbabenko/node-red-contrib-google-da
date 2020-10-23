@@ -1,0 +1,24 @@
+{
+  "name": "node-red-contrib-google-da",
+  "version": "1.0.0",
+  "description": "Nodes for communicating with google device access",
+  "main": "googla-da.js",
+  "scripts": {
+    "test": "jest google-da.spec.js"
+  },
+  "author": "Nick Babenko <nickbabenko@me.com>",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "google-da": "google-da.js"
+    }
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
+  },
+  "devDependencies": {
+    "jest": "^26.6.1",
+    "node-red-node-test-helper": "^0.2.5",
+    "node-red": "^1.2.2"
+  }
+}
