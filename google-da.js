@@ -62,8 +62,8 @@ module.exports = function(RED) {
       })
       done()
     })
-}
-RED.nodes.registerType('google-da-get-structures', GetStructuresNode)
+  }
+  RED.nodes.registerType('google-da-get-structures', GetStructuresNode)
 
   const GetDevicesNode = function(config) {
       RED.nodes.createNode(this, config)
