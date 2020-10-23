@@ -10,7 +10,8 @@
   })
 
   RED.nodes.registerType('google-da-get-structures', {
-    category: 'config',
+    category: 'function',
+    icon: 'font-awesome/home',
     defaults: {
       projectId: { value: '', required: true },
       structureId: { value: '' },
@@ -19,7 +20,8 @@
   })
 
   RED.nodes.registerType('google-da-get-rooms', {
-    category: 'config',
+    category: 'function',
+    icon: 'font-awesome/hotel',
     defaults: {
       projectId: { value: '', required: true },
       structureId: { value: '', required: true },
@@ -29,7 +31,8 @@
   })
 
   RED.nodes.registerType('google-da-get-devices', {
-    category: 'config',
+    category: 'function',
+    icon: 'font-awesome/mobile',
     defaults: {
       projectId: { value: '', required: true },
       deviceId: { value: '' },
