@@ -7,6 +7,65 @@
       refreshToken: { value: '', required: true },
     },
     label: () => `Google DA - ${this.clientId}`,
+    onprepareedit: () => {
+      const id = this.id
+      const privateIPRegex = /(^10\.)|(^172\.1[6-9]\.)|(^172\.2[0-9]\.)|(^172\.3[0-1]\.)|(^192\.168\.)/
+      let callback
+      if (privateIPRegex.test(location.hostname)) { // if private IP has been detected
+          const dummyDomain = 'node-red.example.com'
+          const actualIP = location.hostname;
+          callback = `${location.protocol}//${dummyDomain}${location.port ? `:${location.port}` : ''}${pathname}google-da-credentials/auth/callback`
+      } else {
+          callback = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}${pathname}google-da-credentials/auth/callback`
+      }
+
+      const updateGoogleAuthButton = () => {
+        var projectId = $('#node-auth-input-projectId').val()
+        var clientId = $('#node-auth-input-clientId').val()
+        $('#node-auth-btn-start').toggleClass('disabled', (projectId.length === 0 || clientId.length === 0))
+      }
+      $('#node-auth-input-projectId').on('change keydown paste input', updateGoogleAuthButton)
+      $('#node-config-input-clientSecret').on('change keydown paste input', updateGoogleAuthButton)
+
+      function pollGoogleCredentials() {
+        $.getJSON(`credentials/google-da-credentials/${id}`, function(data) {
+          if (data.displayName) {
+            $('#node-config-dialog-ok').button('enable')
+            updateGoogleDisplayName(data.displayName)
+            delete window.googleConfigNodeIntervalId
+          } else {
+            window.googleConfigNodeIntervalId = window.setTimeout(pollGoogleCredentials, 2000)
+          }
+        });
+      }
+
+      $('#node-auth-btn-start').mousedown(function() {
+        var projectId = $('#node-auth-input-projectId').val()
+        var clientId = $('#node-auth-input-clientId').val()
+        const url = `google-da-credentials/auth?id=${id}&clientId=${clientId}&clientSecret=${clientSecret}&callback=${encodeURIComponent(callback)}`
+        $(this).attr('href', url)
+        window.googleConfigNodeIntervalId = window.setTimeout(pollGoogleCredentials, 2000);
+      });
+      $('#node-auth-btn-start').click(function(e) {
+          var clientId = $('#node-auth-input-clientId').val()
+          var clientSecret = $('#node-auth-input-clientSecret').val()
+          if (clientId === '' || clientSecret === '') {
+            e.preventDefault()
+          }
+      });
+    },
+    oneditsave: function() {
+      if (window.googleConfigNodeIntervalId) {
+        window.clearTimeout(window.googleConfigNodeIntervalId);
+        delete window.googleConfigNodeIntervalId;
+      }
+    },
+    oneditcancel: function() {
+      if (window.googleConfigNodeIntervalId) {
+        window.clearTimeout(window.googleConfigNodeIntervalId);
+        delete window.googleConfigNodeIntervalId;
+      }
+    }
   })
 
   RED.nodes.registerType('google-da-get-structures', {
@@ -51,8 +110,8 @@
     <input type="text" id="node-auth-input-clientSecret" placeholder="Client Secret" />
   </div>
   <div class="form-row">
-    <label for="node-auth-input-refreshToken"><i class="fa fa-tag"></i> Refresh Token</label>
-    <input type="text" id="node-auth-input-refreshToken" placeholder="Refresh Token" />
+    <label>&nbsp;</label>
+    <a class="btn" id="node-auth-btn-start" href="#" target="_blank">Start Authentication</a>
   </div>
 </script>
 
