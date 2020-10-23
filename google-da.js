@@ -66,17 +66,17 @@ module.exports = function(RED) {
   RED.nodes.registerType('google-da-get-structures', GetStructuresNode)
 
   const GetDevicesNode = function(config) {
-      RED.nodes.createNode(this, config)
-      this.on('input', async (_, send, done) => {
-        const path = `enterprises/${config.projectId}/devices${config.deviceId ? `/${config.deviceId}` : ''}`
-        const payload = await request(path, 'GET')
-        send({
-          msg: {
-            payload,
-          },
-        })
-        done()
+    RED.nodes.createNode(this, config)
+    this.on('input', async (_, send, done) => {
+      const path = `enterprises/${config.projectId}/devices${config.deviceId ? `/${config.deviceId}` : ''}`
+      const payload = await request(path, 'GET')
+      send({
+        msg: {
+          payload,
+        },
       })
+      done()
+    })
   }
   RED.nodes.registerType('google-da-get-devices', GetDevicesNode)
 
