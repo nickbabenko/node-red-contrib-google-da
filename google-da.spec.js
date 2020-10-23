@@ -48,4 +48,19 @@ describe('GoogleDA', () => {
     })
   })
 
+  it.skip('should load a single structure', done => {
+  })
+
+  it.skip('should load all rooms', done => {
+  })
+
+  it.skip('should load a single room', done => {
+  })
+
+  it.skip('should load all devices', done => {
+  })
+
+  it.skip('should load a single device', done => {
+  })
+
 })

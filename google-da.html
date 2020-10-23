@@ -18,6 +18,16 @@
     label: () => `Google DA Get Structures  - ${this.projectId}`,
   })
 
+  RED.nodes.registerType('google-da-get-rooms', {
+    category: 'config',
+    defaults: {
+      projectId: { value: '', required: true },
+      structureId: { value: '', required: true },
+      roomId: { value: '' },
+    },
+    label: () => `Google DA Get Rooms  - ${this.projectId}`,
+  })
+
   RED.nodes.registerType('google-da-get-devices', {
     category: 'config',
     defaults: {
@@ -51,6 +61,21 @@
   <div class="form-row">
     <label for="node-get-structures-input-structureId"><i class="fa fa-tag"></i> Structure ID</label>
     <input type="text" id="node-get-structures-input-structureId" placeholder="Structure ID" />
+  </div>
+</script>
+
+<script type="text/html" data-template-name="google-da-get-rooms">
+  <div class="form-row">
+    <label for="node-get-rooms-input-projectId"><i class="fa fa-tag"></i> Project ID</label>
+    <input type="text" id="node-get-rooms-input-projectId" placeholder="Project ID" />
+  </div>
+  <div class="form-row">
+    <label for="node-get-rooms-input-structureId"><i class="fa fa-tag"></i> Structure ID</label>
+    <input type="text" id="node-get-rooms-input-structureId" placeholder="Structure ID" />
+  </div>
+  <div class="form-row">
+    <label for="node-get-rooms-input-roomId"><i class="fa fa-tag"></i> Room ID</label>
+    <input type="text" id="node-get-rooms-input-roomId" placeholder="Room ID" />
   </div>
 </script>
 

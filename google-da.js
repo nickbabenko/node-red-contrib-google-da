@@ -65,6 +65,21 @@ module.exports = function(RED) {
   }
   RED.nodes.registerType('google-da-get-structures', GetStructuresNode)
 
+  const GetRoomsNode = function(config) {
+    RED.nodes.createNode(this, config)
+    this.on('input', async (_, send, done) => {
+      const path = `enterprises/${config.projectId}/structures${config.structureId}/rooms/${config.roomId ? `/${config.roomId}` : ''}`
+      const payload = await request(path, 'GET')
+      send({
+        msg: {
+          payload,
+        },
+      })
+      done()
+    })
+  }
+  RED.nodes.registerType('google-da-get-rooms', GetRoomsNode)
+
   const GetDevicesNode = function(config) {
     RED.nodes.createNode(this, config)
     this.on('input', async (_, send, done) => {
