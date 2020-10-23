@@ -8,8 +8,7 @@ module.exports = function(RED) {
 
   const request = async (path, method, data = {}) => {
     if (!accessToken) {
-      console.error('Unable to make request, not access tomen loaded')
-      return
+      throw Error('Unable to make request, no access token available')
     }
     return axios({
       url: `https://smartdevicemanagement.googleapis.com/v1/${path}`,
@@ -50,6 +49,21 @@ module.exports = function(RED) {
     refreshAccessToken(config)
   }
   RED.nodes.registerType('google-da-config', ConfigNode)
+
+  const GetStructuresNode = function(config) {
+    RED.nodes.createNode(this, config)
+    this.on('input', async (_, send, done) => {
+      const path = `enterprises/${config.projectId}/structures${config.structureId ? `/${config.structureId}` : ''}`
+      const payload = await request(path, 'GET')
+      send({
+        msg: {
+          payload,
+        },
+      })
+      done()
+    })
+}
+RED.nodes.registerType('google-da-get-structures', GetStructuresNode)
 
   const GetDevicesNode = function(config) {
       RED.nodes.createNode(this, config)

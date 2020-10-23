@@ -9,13 +9,22 @@
     label: () => `Google DA - ${this.clientId}`,
   })
 
+  RED.nodes.registerType('google-da-get-structures', {
+    category: 'config',
+    defaults: {
+      projectId: { value: '', required: true },
+      structureId: { value: '' },
+    },
+    label: () => `Google DA Get Structures  - ${this.projectId}`,
+  })
+
   RED.nodes.registerType('google-da-get-devices', {
     category: 'config',
     defaults: {
       projectId: { value: '', required: true },
       deviceId: { value: '' },
     },
-    label: () => `Google DA - ${this.clientId}`,
+    label: () => `Google DA Get Devices - ${this.projectId}`,
   })
 </script>
 
@@ -31,6 +40,17 @@
   <div class="form-row">
     <label for="node-auth-input-refreshToken"><i class="fa fa-tag"></i> Refresh Token</label>
     <input type="text" id="node-auth-input-refreshToken" placeholder="Refresh Token" />
+  </div>
+</script>
+
+<script type="text/html" data-template-name="google-da-get-structures">
+  <div class="form-row">
+    <label for="node-get-structures-input-projectId"><i class="fa fa-tag"></i> Project ID</label>
+    <input type="text" id="node-get-structures-input-projectId" placeholder="Project ID" />
+  </div>
+  <div class="form-row">
+    <label for="node-get-structures-input-structureId"><i class="fa fa-tag"></i> Structure ID</label>
+    <input type="text" id="node-get-structures-input-structureId" placeholder="Structure ID" />
   </div>
 </script>
 
